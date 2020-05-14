@@ -570,6 +570,7 @@
             this.MinimumSize = new System.Drawing.Size(651, 485);
             this.Name = "Trainer";
             this.Text = "Spelunky trainer by Brum";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Trainer_FormClosing);
             this.grpboxPlayer.ResumeLayout(false);
             this.grpboxPlayer.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMoney)).EndInit();

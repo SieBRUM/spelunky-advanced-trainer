@@ -95,6 +95,8 @@ namespace SpelunkySuperTrainer
             {
                 MessageBox.Show("Unable to find Spelunky. Make sure the game is running!");
                 Application.Exit();
+                Environment.Exit(Environment.ExitCode);
+                return;
             }
 
 
@@ -272,6 +274,11 @@ namespace SpelunkySuperTrainer
             {
                 lockTimeRight = -1;
             }
+        }
+
+        private void Trainer_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Environment.Exit(Environment.ExitCode);
         }
     }
 }
