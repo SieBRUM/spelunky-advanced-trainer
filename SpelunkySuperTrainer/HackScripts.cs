@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpelunkySuperTrainer
 {
     public class HackScripts
     {
-        ProcessInformation ProcessInformation;
+        readonly ProcessInformation ProcessInformation;
 
         public HackScripts(ProcessInformation processInformation)
         {
@@ -119,6 +115,11 @@ namespace SpelunkySuperTrainer
 
         public void TeleportPlayer(Vector2 location)
         {
+            if(location == default)
+            {
+                throw new ArgumentException("Location cannot be null!");
+            }
+
             var playerXAddress = WinAPIWrapper.FindDMAAddy(ProcessInformation.hProc, ProcessInformation.moduleBaseAddress + 0x138558, new int[] { 0x30, 0x30 });
             var playerYAddress = WinAPIWrapper.FindDMAAddy(ProcessInformation.hProc, ProcessInformation.moduleBaseAddress + 0x138558, new int[] { 0x30, 0x34 });
 

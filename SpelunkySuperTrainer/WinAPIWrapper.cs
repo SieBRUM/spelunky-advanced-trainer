@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace SpelunkySuperTrainer
 {
-    public class WinAPIWrapper
+    public static class WinAPIWrapper
     {
         [Flags]
         private enum SnapshotFlags : uint
@@ -119,14 +119,16 @@ namespace SpelunkySuperTrainer
 
             if (hSnap.ToInt64() != -1)
             {
-                MODULEENTRY32 modEntry = new MODULEENTRY32();
-                modEntry.dwSize = (uint)Marshal.SizeOf(typeof(MODULEENTRY32));
+                MODULEENTRY32 modEntry = new MODULEENTRY32
+                {
+                    dwSize = (uint)Marshal.SizeOf(typeof(MODULEENTRY32))
+                };
 
                 if (Module32First(hSnap, ref modEntry))
                 {
                     do
                     {
-                        if (modEntry.szModule.Equals(modName))
+                        if (modEntry.szModule == modName)
                         {
                             modBaseAddr = modEntry.modBaseAddr;
                             break;
@@ -146,7 +148,7 @@ namespace SpelunkySuperTrainer
             foreach (int i in offsets)
             {
                 ReadProcessMemory(hProc, ptr, buffer, buffer.Length, out var read);
-                ptr = (IntPtr.Size == 4) ? IntPtr.Add(new IntPtr(BitConverter.ToInt32(buffer, 0)), i) : ptr = IntPtr.Add(new IntPtr(BitConverter.ToInt64(buffer, 0)), i);
+                ptr = (IntPtr.Size == 4) ? IntPtr.Add(new IntPtr(BitConverter.ToInt32(buffer, 0)), i) : IntPtr.Add(new IntPtr(BitConverter.ToInt64(buffer, 0)), i);
             }
             return ptr;
         }

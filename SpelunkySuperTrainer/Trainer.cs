@@ -12,12 +12,7 @@ namespace SpelunkySuperTrainer
         ProcessInformation spelunkyProcessInformation;
         Thread lockingThread;
 
-        private int lockHearts = -1;
-        private int lockMoney = -1;
-        private int lockRopes = -1;
-        private int lockBombs = -1;
-        private int lockTimeLeft = -1;
-        private int lockTimeRight = -1;
+        private int lockHearts, lockMoney, lockRopes, lockBombs, lockTimeLeft, lockTimeRight = -1;
 
         public Trainer()
         {
@@ -87,7 +82,7 @@ namespace SpelunkySuperTrainer
 
             var processes = Process.GetProcessesByName("Spelunky");
 
-            if (processes != null && processes != default && processes.Count() > 0)
+            if (processes != null && processes.Any())
             {
                 spelunkyProcessInformation.process = Process.GetProcessesByName("Spelunky")[0];
             }
