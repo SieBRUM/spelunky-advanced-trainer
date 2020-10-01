@@ -46,6 +46,11 @@ namespace SpelunkySuperTrainer
             return GetMemoryValueFloat(ProcessInformation.hProc, ProcessInformation.moduleBaseAddress + 0x138558, new int[] { 0x30, 0x34 });
         }
 
+        public float GetFavor()
+        {
+            return GetMemoryValueInt32(ProcessInformation.hProc, ProcessInformation.moduleBaseAddress + 0x138558, new int[] { 0x30, 0x280, 0x529C });
+        }
+
         public void SetLeftTime(int time)
         {
             var leftTimeAddress = WinAPIWrapper.FindDMAAddy(ProcessInformation.hProc, ProcessInformation.moduleBaseAddress + 0x1384B4, new int[] { 0x445954 });
@@ -105,6 +110,12 @@ namespace SpelunkySuperTrainer
 
             var moneyAddress = WinAPIWrapper.FindDMAAddy(ProcessInformation.hProc, ProcessInformation.moduleBaseAddress + 0x1384B4, new int[] { 0x0044592c });
             WinAPIWrapper.WriteProcessMemory(ProcessInformation.hProc, moneyAddress, money, 4, out _);
+        }
+
+        public void SetFavor(int favor)
+        {
+            var favorAddress = WinAPIWrapper.FindDMAAddy(ProcessInformation.hProc, ProcessInformation.moduleBaseAddress + 0x138558, new int[] { 0x30, 0x280, 0x529C });
+            WinAPIWrapper.WriteProcessMemory(ProcessInformation.hProc, favorAddress, favor, 4, out _);
         }
 
         public void SetStage(int stage)
